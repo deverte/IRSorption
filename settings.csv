@@ -1,0 +1,7 @@
+﻿command,fileIn,fileOut,directory,N,Wn,begin,end,mode,extrema
+smooth,Data/1_SiO2_Al2O3.dat,Data/s_1_SiO2_Al2O3.dat,,3,1.e-003
+equalization,Data/s_1_SiO2_Al2O3.dat,Data/e_1_SiO2_Al2O3.dat
+derivative,Data/e_1_SiO2_Al2O3.dat,Data/d_1_SiO2_Al2O3.dat
+normalization,Data/e_1_SiO2_Al2O3.dat,Data/n_1_SiO2_Al2O3.dat
+ia,Data/e_1_SiO2_Al2O3.dat,,Data/,,,100,600,3,min
+ia,Data/e_1_SiO2_Al2O3.dat,,Data/,,,950,1080,3,max
