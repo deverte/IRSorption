@@ -2,9 +2,10 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import derivative
-import normalization
-import integration
+from .derivative import derivative
+from .normalization import normalize
+from .integration import integrate
+from .integration import integrate_function
 
 """
 ia = interval analysis
@@ -163,13 +164,13 @@ def interval_analysis(data, begin, end, keys=[], output="View", mode=2,
     # Выделяем данные заданного интервала
     split = data[begin:end]
     # Производим нормировку
-    normalized = normalization.normalize(split, begin, end)
+    normalized = normalize(split, begin, end)
     # Вычисляем производные
-    derivatives = derivative.derivative(normalized)
+    derivatives = derivative(normalized)
     # Вычисляем интегралы
     integrals = pd.DataFrame()
     for key in data.keys():
-        integrals[key] = integration.integrate_function(normalized[key],
+        integrals[key] = integrate_function(normalized[key],
                                                         extrema)["Integral"]
 
     # Формируем путь выходного файла
@@ -243,12 +244,12 @@ def interval_analysis(data, begin, end, keys=[], output="View", mode=2,
         # Выделяем данные заданного интервала
         split = data[key][begin:end]
         # Производим нормировку
-        normalized = normalization.normalize(data[begin:end], begin, end)[key]
+        normalized = normalize(data[begin:end], begin, end)[key]
 
         # Записываем данные о точках и интегралах в таблицы
         summary = pivot_table(split, mode, extrema)
         final = boundary_table(split, mode, extrema)
-        integral = integral_table(integration.integrate(normalized, extrema))
+        integral = integral_table(integrate(normalized, extrema))
 
         # Формируем путь выходного файла
         output_file = str(begin) + "-" + str(end) + "_" + key

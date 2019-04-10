@@ -1,7 +1,7 @@
-import processing
+import irsorption as irs
 
 def main():
-    processing.processing("settings.csv")
+    irs.processing("settings.csv")
 
 if __name__=="__main__":
     main()

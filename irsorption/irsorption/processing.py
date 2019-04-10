@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
-import smooth
-import equalization
-import derivative
-import normalization
-import integration
-import ia
+
+from .smooth import smooth
+from .equalization import equalization
+from .derivative import derivative
+from .normalization import normalize
+from .integration import integrate
+from .ia import interval_analysis
 
 """
 Модуль, предназначенный для обработки файла с настройками.
@@ -73,7 +74,7 @@ def do_smooth(fileIn, fileOut, N=3, Wn=1e-3):
 
     smoothed = pd.DataFrame(index=data.index)
     for key in data.keys():
-        smoothed[key] = smooth.smooth(data[key], N, Wn)[0]
+        smoothed[key] = smooth(data[key], N, Wn)[0]
 
     smoothed.to_csv(fileOut)
 
@@ -91,7 +92,7 @@ def do_equalization(fileIn, fileOut):
     for key in data.keys():
         ep[key] = (data[key].iloc[0] + data[key].iloc[-1]) / 2
 
-    equalized = equalization.equalization(data, ep)
+    equalized = equalization(data, ep)
 
     equalized.to_csv(fileOut)
 
@@ -105,7 +106,7 @@ def do_derivative(fileIn, fileOut):
     """
     data = pd.read_csv(fileIn, index_col=0, dtype=np.double)
 
-    derivatives = derivative.derivative(data)
+    derivatives = derivative(data)
 
     derivatives.to_csv(fileOut)
 
@@ -119,7 +120,7 @@ def do_normalization(fileIn, fileOut):
     """
     data = pd.read_csv(fileIn, index_col=0, dtype=np.double)
 
-    normalized = normalization.normalize(data, 100, 600)
+    normalized = normalize(data, 100, 600)
 
     normalized.to_csv(fileOut)
 
@@ -147,5 +148,5 @@ def do_ia(fileIn, directory, begin, end, mode, extrema):
     """
     data = pd.read_csv(fileIn, index_col=0, dtype=np.double)
 
-    ia.interval_analysis(data, begin, end, mode=mode, extrema=extrema,
+    interval_analysis(data, begin, end, mode=mode, extrema=extrema,
                                  output="Write", directory=directory)

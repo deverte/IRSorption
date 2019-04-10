@@ -9,8 +9,8 @@ from .ia import view_block
 from .ia import export
 from .ia import export_view
 from .ia import create_directory
-#from .integration import integrate
-#from .integration import integrate_function
+from .integration import integrate
+from .integration import integrate_function
 from .normalization import normalize
 from .processing import processing
 from .processing import do_smooth
